@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
             </div>
             <p style="color:#94a3b8;font-size:13px;margin-top:24px;">
               You can also connect with me on 
-              <a href="https://linkedin.com/in/dhanasekar-a" style="color:#a5b4fc;text-decoration:none;font-weight:600;">LinkedIn</a> or
-              <a href="https://github.com/DhanasekarA-18" style="color:#a5b4fc;text-decoration:none;font-weight:600;">GitHub</a>.
+              <a href="${process.env.LINKEDIN_URL}" style="color:#a5b4fc;text-decoration:none;font-weight:600;">LinkedIn</a> or
+              <a href="${process.env.GITHUB_URL}" style="color:#a5b4fc;text-decoration:none;font-weight:600;">GitHub</a>.
             </p>
           </div>
           <div style="padding:20px 40px;border-top:1px solid rgba(99,102,241,0.15);text-align:center;">
