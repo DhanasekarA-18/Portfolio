@@ -59,6 +59,22 @@ export const featuredProjects: FeaturedProject[] = [
     previewUrl: "vulnerability-checker-smoky.vercel.app",
   },
   {
+    title: "OPEN GALLERY | Community Photo Sharing",
+    description:
+      "A high-quality platform for creators to share their visual work safely and professionally. Features secure OTP-based authentication, a real-time community feed of 'Shots', and a modern glassmorphic UI.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "OTP Auth", "JWT"],
+    liveUrl: "https://open-gallery-alpha.vercel.app/",
+    githubUrls: [
+      { label: "Source Code", url: "https://github.com/DhanasekarA-18/OPEN-GALLERY" },
+    ],
+    icon: "📸",
+    gradient: "linear-gradient(135deg, #3b82f6, #2dd4bf)",
+    accentColor: "#3b82f6",
+    previewTitle: "Open Gallery",
+    previewSubtitle: "Capture • Share • Inspire",
+    previewUrl: "open-gallery-alpha.vercel.app",
+  },
+  {
     title: "DS FOOD | Gourmet Delivery",
     description:
       "A premium food delivery application featuring a real-time cart, secure Razorpay checkout, and automated email order confirmations via Nodemailer. Built with a sleek dark-themed UI for a gourmet dining experience.",

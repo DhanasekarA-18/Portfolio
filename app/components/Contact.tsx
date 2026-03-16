@@ -117,9 +117,9 @@ function ResumeModal({
   }, [onClose]);
 
   // Focus email on open
-  useEffect(() => {
-    setTimeout(() => emailRef.current?.focus(), 120);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => emailRef.current?.focus(), 120);
+  // }, []);
 
   const validateEmail = (val: string) => {
     if (!val.trim()) return "Email address is required.";
@@ -294,6 +294,7 @@ function ResumeModal({
                   opacity: loading ? 0.6 : 1,
                 }}
                 className="modal-input"
+                autoFocus={true}
               />
             </div>
             <AnimatePresence>
