@@ -5,7 +5,8 @@ import path from "path";
 export async function GET() {
     try {
         // Read from app/ folder using fs — works in dev and production
-        const filePath = path.join(process.cwd(), "app", "Dhansekar_A_resume.pdf");
+        const resumeFilename = process.env.RESUME_FILENAME ?? "Dhanasekar_A_resume.pdf";
+        const filePath = path.join(process.cwd(), "public", resumeFilename);
 
         if (!fs.existsSync(filePath)) {
             return NextResponse.json(
@@ -21,7 +22,7 @@ export async function GET() {
             headers: {
                 "Content-Type": "application/pdf",
                 // Forces browser to download with this exact filename
-                "Content-Disposition": 'attachment; filename="Dhansekar_A_resume.pdf"',
+                "Content-Disposition": `attachment; filename="${resumeFilename}"`,
                 "Content-Length": fileBuffer.length.toString(),
                 "Cache-Control": "no-store",
             },

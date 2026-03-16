@@ -24,8 +24,8 @@ export async function POST(req: NextRequest) {
 
         // ── Read resume using fs (works in production / serverless) ──
         // process.cwd() always resolves to the project root in Next.js
-        const resumeFilename = process.env.RESUME_FILENAME ?? "Dhansekar_A_resume.pdf";
-        const resumePath = path.join(process.cwd(), "app", resumeFilename);
+        const resumeFilename = process.env.RESUME_FILENAME ?? "Dhanasekar_A_resume.pdf";
+        const resumePath = path.join(process.cwd(), "public", resumeFilename);
 
         if (!fs.existsSync(resumePath)) {
             console.error("Resume file not found at:", resumePath);

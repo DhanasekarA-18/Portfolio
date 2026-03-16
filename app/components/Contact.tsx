@@ -645,8 +645,8 @@ export default function Contact() {
           <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
             {/* ── Primary: Download via API (fs-served, correct filename) ── */}
             <a
-              href="/Dhansekar_A_resume.pdf"
-              download="Dhansekar_A_resume.pdf"
+              href="/Dhanasekar_A_resume.pdf"
+              download="Dhanasekar_A_resume.pdf"
               className="btn-primary"
               style={{ padding: "8px 20px", fontSize: "0.82rem" }}
             >
