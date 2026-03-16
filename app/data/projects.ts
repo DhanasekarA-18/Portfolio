@@ -26,22 +26,6 @@ export interface ProfessionalProject {
 // ─── Featured / Personal Projects ─────────────────────────────────
 export const featuredProjects: FeaturedProject[] = [
   {
-    title: "DS SECURE SCAN | Vulnerability Intelligence",
-    description:
-      "A high-performance vulnerability scanner that audits npm dependencies in real-time. Features automated GitHub repository scraping, manual package.json analysis, and deep CVE intelligence to secure Node.js applications.",
-    tags: ["Next.js", "TypeScript", "Web Scraping", "Security API", "Tailwind CSS"],
-    liveUrl: "https://vulnerability-checker-smoky.vercel.app/",
-    githubUrls: [
-      { label: "Source Code", url: "https://github.com/DhanasekarA-18/Vulnerability-checker" },
-    ],
-    icon: "🛡️",
-    gradient: "linear-gradient(135deg, #4f46e5, #7c3aed)",
-    accentColor: "#4f46e5",
-    previewTitle: "DS SECURE SCAN",
-    previewSubtitle: "Fetch • Audit • Secure",
-    previewUrl: "vulnerability-checker-smoky.vercel.app",
-  },
-  {
     title: "Email Template Generator",
     description:
       "A drag-and-drop email template builder with live HTML preview, syntax-highlighted code editor (Monaco), and direct integration with the marketing notification pipeline — built and shipped for internal team use.",
@@ -57,6 +41,22 @@ export const featuredProjects: FeaturedProject[] = [
     previewSubtitle: "Drag • Design • Deploy",
     previewUrl: "email-template-for-zolvit.vercel.app",
     usedBy: "VS Notification Manager Team",
+  },
+  {
+    title: "DS SECURE SCAN | Vulnerability Intelligence",
+    description:
+      "A high-performance vulnerability scanner that audits npm dependencies in real-time. Features automated GitHub repository scraping, manual package.json analysis, and deep CVE intelligence to secure Node.js applications.",
+    tags: ["Next.js", "TypeScript", "Web Scraping", "Security API", "Tailwind CSS"],
+    liveUrl: "https://vulnerability-checker-smoky.vercel.app/",
+    githubUrls: [
+      { label: "Source Code", url: "https://github.com/DhanasekarA-18/Vulnerability-checker" },
+    ],
+    icon: "🛡️",
+    gradient: "linear-gradient(135deg, #4f46e5, #7c3aed)",
+    accentColor: "#4f46e5",
+    previewTitle: "DS SECURE SCAN",
+    previewSubtitle: "Fetch • Audit • Secure",
+    previewUrl: "vulnerability-checker-smoky.vercel.app",
   },
   {
     title: "DS FOOD | Gourmet Delivery",

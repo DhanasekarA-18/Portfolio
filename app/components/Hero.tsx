@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const roles = [
   "Full-Stack Engineer",
@@ -251,9 +252,18 @@ export default function Hero() {
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: "8rem",
+                  overflow: "hidden",
+                  position: "relative",
                 }}
               >
-                👨‍💻
+                <Image
+                  src="/ds.jpeg"
+                  alt="Dhanasekar A"
+                  fill
+                  style={{ objectFit: "cover" }}
+                  priority
+                  loading={"eager"}
+                />
               </div>
             </div>
 
