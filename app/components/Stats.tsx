@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { YEARS_OF_EXPERIENCE } from "@/app/data/constants";
 
 const stats = [
   { value: 80, suffix: "%", label: "Manual process reduction", icon: "📉", color: "#6366f1" },
   { value: 40, suffix: "%", label: "Support tickets eliminated", icon: "🎫", color: "#8b5cf6" },
   { value: 25, suffix: "%", label: "Page load speed improved", icon: "⚡", color: "#06b6d4" },
-  { value: 3, suffix: "+", label: "Years of experience", icon: "🚀", color: "#10b981" },
+  { value: YEARS_OF_EXPERIENCE, suffix: "+", label: "Years of experience", icon: "🚀", color: "#10b981" },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {

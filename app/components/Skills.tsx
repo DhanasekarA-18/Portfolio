@@ -26,7 +26,7 @@ const skillCategories = [
     name: "Database & Infra",
     icon: "🗄️",
     color: "#10b981",
-    skills: ["MongoDB", "PostgreSQL", "Redis", "Elasticsearch", "Docker Basics"],
+    skills: ["MongoDB", "Redis", "Elasticsearch", "Docker Basics"],
   },
   {
     name: "Dev Tooling",
@@ -93,11 +93,12 @@ export default function Skills() {
       <motion.div
         variants={container}
         initial="hidden"
-        animate={inView ? "show" : "hidden"}
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
+          gap: "24px",
         }}
         className="skills-grid"
       >
@@ -105,31 +106,56 @@ export default function Skills() {
           <motion.div
             key={cat.name}
             variants={item}
-            className="glass-card"
-            style={{ padding: "28px" }}
+            style={{
+              background: "rgba(15, 23, 42, 0.4)",
+              backdropFilter: "blur(12px)",
+              border: "1px solid rgba(255, 255, 255, 0.05)",
+              borderRadius: "24px",
+              padding: "32px",
+              boxShadow: "0 10px 40px -10px rgba(0,0,0,0.3)",
+              transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+              position: "relative",
+              overflow: "hidden"
+            }}
+            className="skill-category-card"
           >
+            {/* Category background glow */}
+            <div style={{
+              position: "absolute",
+              top: "-20px",
+              right: "-20px",
+              width: "80px",
+              height: "80px",
+              background: cat.color,
+              filter: "blur(40px)",
+              opacity: 0.1,
+              zIndex: 0
+            }} />
+
             {/* Category header */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
+            <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
               <div
                 style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "10px",
-                  background: `${cat.color}20`,
-                  border: `1px solid ${cat.color}40`,
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "12px",
+                  background: `${cat.color}15`,
+                  border: `1px solid ${cat.color}30`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: "1.1rem",
+                  fontSize: "1.2rem",
+                  boxShadow: `0 8px 16px -4px ${cat.color}30`
                 }}
               >
                 {cat.icon}
               </div>
               <h3
                 style={{
-                  fontWeight: 700,
-                  fontSize: "0.95rem",
-                  color: "var(--text-primary)",
+                  fontWeight: 800,
+                  fontSize: "1rem",
+                  color: "#fff",
+                  letterSpacing: "-0.01em"
                 }}
               >
                 {cat.name}
@@ -137,9 +163,23 @@ export default function Skills() {
             </div>
 
             {/* Skills */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+            <div style={{ position: "relative", zIndex: 1, display: "flex", flexWrap: "wrap", gap: "10px" }}>
               {cat.skills.map((skill) => (
-                <span key={skill} className="skill-badge">
+                <span 
+                  key={skill} 
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: "10px",
+                    background: "rgba(255, 255, 255, 0.03)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
+                    color: "var(--text-secondary)",
+                    fontSize: "0.82rem",
+                    fontWeight: 600,
+                    transition: "all 0.3s ease",
+                    cursor: "default"
+                  }}
+                  className="skill-item-tag"
+                >
                   {skill}
                 </span>
               ))}

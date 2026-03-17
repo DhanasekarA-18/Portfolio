@@ -143,6 +143,12 @@ body {
   transition: var(--transition-smooth);
 }
 
+@media (max-width: 640px) {
+  .glass-card {
+    padding: 20px 16px !important;
+  }
+}
+
 .glass-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-glow);
@@ -282,21 +288,48 @@ body {
 }
 
 /* ─── Timeline ────────────────────────────────────────────────── */
+.experience-timeline {
+  padding-left: 60px;
+}
+
 .timeline-line {
   position: absolute;
-  left: 19px;
+  left: 39px;
   top: 0;
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-      rgba(99, 102, 241, 0.6),
-      rgba(6, 182, 212, 0.2),
+      var(--accent-primary),
+      var(--accent-secondary),
       transparent);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .experience-timeline {
+    padding-left: 40px;
+  }
+
+  .timeline-line {
+    left: 19px;
+  }
+
+  .timeline-dot-wrapper {
+    left: -40px !important;
+  }
+}
+
+.timeline-dot-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
 .timeline-dot {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   display: flex;
@@ -306,6 +339,19 @@ body {
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
   position: relative;
   z-index: 1;
+  border: 4px solid var(--bg-primary);
+  animation: dot-pulse 3s infinite ease-in-out;
+}
+
+@keyframes dot-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.6);
+    transform: scale(1.05);
+  }
 }
 
 /* ─── Stat Card ───────────────────────────────────────────────── */

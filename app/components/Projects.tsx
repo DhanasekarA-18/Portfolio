@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   featuredProjects,
   professionalProjects,
@@ -304,7 +304,7 @@ function FeaturedCard({
 }
 
 // ─── Professional Work Card (Compact grid style) ─────────────────
-function ProfessionalCard({
+function ProfessionalCardUI({
   project,
   index,
 }: {
@@ -314,70 +314,85 @@ function ProfessionalCard({
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      whileHover={{
+        y: -10,
+        transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] }
+      }}
+      whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="glass-card"
+      className="glass-card professional-project-card"
       style={{
-        padding: "28px",
+        padding: "32px",
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
+        gap: "20px",
         height: "100%",
+        position: "relative",
+        overflow: "hidden",
+        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "rgba(13, 17, 23, 0.7)",
+        backdropFilter: "blur(12px)",
+        boxShadow: "0 10px 30px -10px rgba(0,0,0,0.5)",
       }}
     >
+      {/* Background Glow */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20%",
+          right: "-20%",
+          width: "70%",
+          height: "70%",
+          background: `radial-gradient(circle, ${project.color}12 0%, transparent 70%)`,
+          pointerEvents: "none",
+          zIndex: 0
+        }}
+      />
+
       {/* Header row */}
       <div
         style={{
           display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
+          alignItems: "center",
           gap: "12px",
+          position: "relative",
+          zIndex: 1,
+          marginBottom: "4px"
         }}
       >
-        {/* Icon */}
-        <div
-          style={{
-            width: "48px",
-            height: "48px",
-            borderRadius: "12px",
-            background: `${project.color}18`,
-            border: `1px solid ${project.color}30`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "1.5rem",
-            flexShrink: 0,
-          }}
-        >
-          {project.icon}
+        {/* Icon with orbital ring */}
+        <div style={{ position: "relative" }}>
+          <div
+            style={{
+              width: "52px",
+              height: "52px",
+              borderRadius: "14px",
+              background: `linear-gradient(135deg, ${project.color}20, ${project.color}05)`,
+              border: `1px solid ${project.color}40`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "1.6rem",
+              boxShadow: `0 0 20px -5px ${project.color}30`,
+            }}
+          >
+            {project.icon}
+          </div>
         </div>
-
-        {/* Company badge */}
-        <span
-          style={{
-            padding: "3px 10px",
-            borderRadius: "999px",
-            background: "rgba(99,102,241,0.1)",
-            border: "1px solid rgba(99,102,241,0.2)",
-            color: "#a5b4fc",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            letterSpacing: "0.02em",
-          }}
-        >
-          @ Vakilsearch
-        </span>
       </div>
 
       {/* Content */}
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, position: "relative", zIndex: 1 }}>
         <h3
           style={{
-            fontSize: "1.02rem",
-            fontWeight: 700,
-            color: "var(--text-primary)",
-            marginBottom: "10px",
-            lineHeight: "1.35",
+            fontSize: "1.1rem",
+            fontWeight: 800,
+            color: "#fff",
+            marginBottom: "12px",
+            lineHeight: "1.3",
+            letterSpacing: "-0.01em"
           }}
         >
           {project.title}
@@ -385,18 +400,30 @@ function ProfessionalCard({
         <p
           style={{
             color: "var(--text-secondary)",
-            fontSize: "0.875rem",
-            lineHeight: "1.7",
+            fontSize: "0.9rem",
+            lineHeight: "1.8",
+            opacity: 0.85
           }}
         >
           {project.description}
         </p>
       </div>
 
-      {/* Tags */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+      {/* Tags row */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", position: "relative", zIndex: 1 }}>
         {project.tags.map((tag) => (
-          <span key={tag} className="project-tag">
+          <span
+            key={tag}
+            style={{
+              fontSize: "0.7rem",
+              padding: "4px 10px",
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: "6px",
+              color: "var(--text-muted)",
+              fontWeight: 500
+            }}
+          >
             {tag}
           </span>
         ))}
@@ -407,32 +434,139 @@ function ProfessionalCard({
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "8px",
-          paddingTop: "12px",
-          borderTop: "1px solid rgba(99,102,241,0.1)",
+          gap: "10px",
+          paddingTop: "16px",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          position: "relative",
+          zIndex: 1
         }}
       >
-        <div
+        <motion.div
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ repeat: Infinity, duration: 2 }}
           style={{
             width: "8px",
             height: "8px",
             borderRadius: "50%",
             background: project.color,
-            boxShadow: `0 0 6px ${project.color}`,
-            flexShrink: 0,
+            boxShadow: `0 0 12px ${project.color}`,
           }}
         />
         <span
           style={{
-            color: "var(--text-muted)",
-            fontSize: "0.78rem",
-            fontWeight: 500,
+            color: project.color,
+            fontSize: "0.75rem",
+            fontWeight: 700,
+            letterSpacing: "0.01em",
+            opacity: 0.9
           }}
         >
           {project.impact}
         </span>
       </div>
     </motion.div>
+  );
+}
+
+// ─── Accordion Group Component ──────────────────────────────────
+function AccordionGroup({
+  company,
+  projects,
+  defaultOpen = false,
+}: {
+  company: string;
+  projects: ProfessionalProject[];
+  defaultOpen?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <div
+      style={{
+        borderRadius: "16px",
+        overflow: "hidden",
+        border: "1px solid rgba(255, 255, 255, 0.05)",
+        background: "rgba(13, 17, 23, 0.4)",
+        marginBottom: "12px"
+      }}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        style={{
+          width: "100%",
+          padding: "20px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: isOpen ? "rgba(99, 102, 241, 0.05)" : "transparent",
+          border: "none",
+          cursor: "pointer",
+          transition: "all 0.3s ease",
+          textAlign: "left"
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <div
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "10px",
+              background: projects[0].color + "20",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "1.2rem",
+            }}
+          >
+            {company.includes("Samsung") ? "📱" : "🏛️"}
+          </div>
+          <div>
+            <h4 style={{ color: "#fff", fontSize: "1.05rem", fontWeight: 700, marginBottom: "2px" }}>
+              {company}
+            </h4>
+            <span style={{ color: "var(--text-muted)", fontSize: "0.75rem", fontWeight: 500, opacity: 0.8 }}>
+              {company.includes("Samsung")
+                ? "Building global-scale CMS & internal operational platforms"
+                : "Product verticals, automation & scalability systems"}
+            </span>
+          </div>
+        </div>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ color: "var(--text-muted)" }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </motion.div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+          >
+            <div
+              style={{
+                padding: "24px",
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "20px",
+              }}
+              className="projects-grid"
+            >
+              {projects.map((project, i) => (
+                <ProfessionalCardUI key={project.title} project={project} index={i} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -471,18 +605,14 @@ export default function Projects() {
           style={{
             color: "var(--text-secondary)",
             marginTop: "12px",
-            maxWidth: "560px",
+            maxWidth: "600px",
             margin: "12px auto 0",
             fontSize: "0.95rem",
             lineHeight: "1.7",
           }}
         >
-          Personal side-projects with live demos and open-source code,
-          plus production systems I shipped at{" "}
-          <span style={{ color: "#a5b4fc", fontWeight: 600 }}>
-            Vakilsearch (Zolvit)
-          </span>
-          .
+          A curated collection of professional production systems and open-source contributions
+          built with a focus on performance, scalability, and modern user experience.
         </p>
       </motion.div>
 
@@ -510,20 +640,21 @@ export default function Projects() {
                 }}
               />
               <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-primary)" }}>
-                Open Source & Side Projects
+                Open Source & Technical Innovations
               </h3>
               <span
                 style={{
-                  padding: "2px 10px",
+                  padding: "2px 12px",
                   borderRadius: "999px",
-                  background: "rgba(16,185,129,0.1)",
-                  border: "1px solid rgba(16,185,129,0.25)",
+                  background: "rgba(16,185,129,0.12)",
+                  border: "1px solid rgba(16,185,129,0.3)",
                   color: "#10b981",
                   fontSize: "0.7rem",
-                  fontWeight: 600,
+                  fontWeight: 700,
+                  letterSpacing: "0.02em"
                 }}
               >
-                {featuredProjects.length} Live
+                {featuredProjects.length}+ & More Coming Soon
               </span>
             </motion.div>
 
@@ -534,8 +665,8 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* ── Professional Work ─────────────────────────── */}
-          <div>
+          {/* ── Professional Work (Accordion Grouped) ────────────── */}
+          <div style={{ marginTop: "40px" }}>
             <motion.div
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
@@ -544,7 +675,7 @@ export default function Projects() {
                 display: "flex",
                 alignItems: "center",
                 gap: "10px",
-                marginBottom: "12px",
+                marginBottom: "32px",
               }}
             >
               <div
@@ -569,62 +700,26 @@ export default function Projects() {
                   fontWeight: 600,
                 }}
               >
-                @ Vakilsearch
+                Enterprise Experience
               </span>
             </motion.div>
 
-            {/* NDA banner */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.25 }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "rgba(99,102,241,0.06)",
-                border: "1px solid rgba(99,102,241,0.18)",
-                borderRadius: "12px",
-                padding: "14px 20px",
-                marginBottom: "24px",
-              }}
-            >
-              <div
-                style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "8px",
-                  background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  fontSize: "1rem",
-                }}
-              >
-                🏢
-              </div>
-              <div>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-primary)", fontWeight: 600, marginBottom: "2px" }}>
-                  Professional Work — Vakilsearch / Zolvit
-                </p>
-                <p style={{ fontSize: "0.78rem", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                  All projects below were built and shipped during my tenure as a Software Engineer. Due to NDA & proprietary nature, GitHub links may not be available.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "20px",
-              }}
-              className="projects-grid"
-            >
-              {professionalProjects.map((project, i) => (
-                <ProfessionalCard key={project.title} project={project} index={i} />
+            {/* Accordion Groups */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              {Object.entries(
+                professionalProjects.reduce((acc, project) => {
+                  const company = project.company;
+                  if (!acc[company]) acc[company] = [];
+                  acc[company].push(project);
+                  return acc;
+                }, {} as Record<string, typeof professionalProjects>)
+              ).map(([company, projects], groupIndex) => (
+                <AccordionGroup
+                  key={company}
+                  company={company}
+                  projects={projects}
+                // defaultOpen={groupIndex == 0}
+                />
               ))}
             </div>
           </div>

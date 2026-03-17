@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
+import { YEARS_OF_EXPERIENCE } from "@/app/data/constants";
+
 const roles = [
-  "Full-Stack Engineer",
-  "React & Next.js Expert",
-  "Performance Optimizer",
-  "Product Builder",
+  "Senior Software Engineer",
+  "Product-Driven Developer",
+  "React & Next.js Specialist",
+  "Performance Architect",
 ];
 
 function TypewriterText({ texts }: { texts: string[] }) {
@@ -158,10 +160,12 @@ export default function Hero() {
               marginBottom: "36px",
             }}
           >
-            Frontend-leaning full-stack engineer with{" "}
-            <strong style={{ color: "var(--text-primary)" }}>3+ years</strong> building
-            scalable, high-performance web products. Experienced in onboarding
-            optimization, analytics-driven improvements, and shipping fast.
+            Software Engineer with <strong>{YEARS_OF_EXPERIENCE}+ years of experience</strong> building
+            high-performance web applications. I specialize in scalable UI
+            architecture, optimized user journeys, and data-driven product
+            improvements. Experienced as a <strong>Full-Stack Developer </strong>
+            working with <strong>React, Next.js, Node.js, and Express</strong> to
+            build scalable, production-ready systems.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -266,80 +270,112 @@ export default function Hero() {
                 />
               </div>
             </div>
-
             {/* Floating badges */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 3, delay: 0 }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
               style={{
                 position: "absolute",
-                top: "10px",
-                right: "-30px",
-                background: "rgba(15,23,42,0.9)",
+                top: "-20px",
+                right: "-100px",
+                background: "rgba(15,23,42,0.85)",
                 border: "1px solid rgba(99,102,241,0.3)",
-                borderRadius: "12px",
-                padding: "10px 14px",
-                backdropFilter: "blur(12px)",
+                borderRadius: "16px",
+                padding: "12px 20px",
+                backdropFilter: "blur(16px)",
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "10px",
                 whiteSpace: "nowrap",
+                boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)",
+                zIndex: 10
               }}
             >
-              <span style={{ fontSize: "1.2rem" }}>⚡</span>
+              <div style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "10px",
+                background: "rgba(99,102,241,0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.1rem"
+              }}>📱</div>
               <div>
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Performance</div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>+25% Faster</div>
+                <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.02em" }}>Enterprise Solutions</div>
+                <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "var(--text-primary)" }}>Samsung | Altimetrik</div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ repeat: Infinity, duration: 3.8, delay: 0.5, ease: "easeInOut" }}
+              style={{
+                position: "absolute",
+                bottom: "60px",
+                left: "-50px",
+                background: "rgba(15,23,42,0.85)",
+                border: "1px solid rgba(139,92,246,0.3)",
+                borderRadius: "16px",
+                padding: "12px 20px",
+                backdropFilter: "blur(16px)",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                whiteSpace: "nowrap",
+                boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)",
+                zIndex: 10
+              }}
+            >
+              <div style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "10px",
+                background: "rgba(139,92,246,0.15)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.1rem"
+              }}>🏗️</div>
+              <div>
+                <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.02em" }}>Core Scalability</div>
+                <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "var(--text-primary)" }}>Vakilsearch</div>
               </div>
             </motion.div>
 
             <motion.div
               animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 3.5, delay: 1 }}
+              transition={{ repeat: Infinity, duration: 4.2, delay: 1, ease: "easeInOut" }}
               style={{
                 position: "absolute",
-                bottom: "30px",
-                left: "-40px",
-                background: "rgba(15,23,42,0.9)",
+                bottom: "-20px",
+                right: "-30px",
+                background: "rgba(15,23,42,0.85)",
                 border: "1px solid rgba(6,182,212,0.3)",
-                borderRadius: "12px",
-                padding: "10px 14px",
-                backdropFilter: "blur(12px)",
+                borderRadius: "16px",
+                padding: "12px 20px",
+                backdropFilter: "blur(16px)",
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "10px",
                 whiteSpace: "nowrap",
+                boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)",
+                zIndex: 10
               }}
             >
-              <span style={{ fontSize: "1.2rem" }}>📉</span>
-              <div>
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Automation</div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>80% Reduction</div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 4, delay: 0.5 }}
-              style={{
-                position: "absolute",
-                bottom: "-10px",
-                right: "10px",
-                background: "rgba(15,23,42,0.9)",
-                border: "1px solid rgba(139,92,246,0.3)",
-                borderRadius: "12px",
-                padding: "10px 14px",
-                backdropFilter: "blur(12px)",
+              <div style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "10px",
+                background: "rgba(6,182,212,0.15)",
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span style={{ fontSize: "1.2rem" }}>🏢</span>
+                justifyContent: "center",
+                fontSize: "1.1rem"
+              }}>📊</div>
               <div>
-                <div style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>Experience</div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>Vakilsearch</div>
+                <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", fontWeight: 600, letterSpacing: "0.02em" }}>Technological Impact</div>
+                <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "var(--text-primary)" }}>80% Efficiency Gain</div>
               </div>
             </motion.div>
           </div>

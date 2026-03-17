@@ -16,6 +16,7 @@ export interface FeaturedProject {
 
 export interface ProfessionalProject {
   title: string;
+  company: string;
   description: string;
   tags: string[];
   impact: string;
@@ -40,7 +41,7 @@ export const featuredProjects: FeaturedProject[] = [
     previewTitle: "Email Builder",
     previewSubtitle: "Drag • Design • Deploy",
     previewUrl: "email-template-for-zolvit.vercel.app",
-    usedBy: "VS Notification Manager Team",
+    usedBy: "Zolvit Notification Manager Team",
   },
   {
     title: "DS SECURE SCAN | Vulnerability Intelligence",
@@ -79,7 +80,7 @@ export const featuredProjects: FeaturedProject[] = [
     description:
       "A premium food delivery application featuring a real-time cart, secure Razorpay checkout, and automated email order confirmations via Nodemailer. Built with a sleek dark-themed UI for a gourmet dining experience.",
     tags: ["Next.js", "React", "Node.js", "Razorpay", "Nodemailer", "SCSS"],
-    liveUrl: "https://food-8tp1f5mnw-dhanasekar-as-projects.vercel.app/",
+    liveUrl: "https://food-app-ruddy-three.vercel.app/",
     githubUrls: [
       { label: "Source Code", url: "https://github.com/DhanasekarA-18/foodAPP" },
     ],
@@ -125,10 +126,41 @@ export const featuredProjects: FeaturedProject[] = [
   },
 ];
 
-// ─── Professional Projects (Vakilsearch) ──────────────────────────
+// ─── Professional Projects ─────────────────────────────────────────
 export const professionalProjects: ProfessionalProject[] = [
   {
+    title: "Samsung Shop CMS Platform",
+    company: "Samsung (Altimetrik)",
+    description:
+      "Architected and built the core CMS powering dynamic content for the Samsung Shop App. Developed reusable widgets with live preview features, enabling non-technical teams to manage global storefronts.",
+    tags: ["React", "TypeScript", "Vite", "Shared Components"],
+    impact: "Powering global storefront content",
+    icon: "📱",
+    color: "#22c55e",
+  },
+  {
+    title: "Internal Design System & UI Library",
+    company: "Samsung (Altimetrik)",
+    description:
+      "Developed a centralized component library using Storybook to standardize UI across multiple internal OPS tools. Built high-performance shared headers and interactive widgets used by multiple teams.",
+    tags: ["Storybook", "Web Components", "CSS", "TypeScript"],
+    impact: "Standardized UI across 5+ internal tools",
+    icon: "💠",
+    color: "#3b82f6",
+  },
+  {
+    title: "Centralized Audit Intelligence",
+    company: "Samsung (Altimetrik)",
+    description:
+      "Implemented a specialized Audit Log service utilizing Web Workers to capture and process high-frequency user actions asynchronously, ensuring zero impact on the main thread's performance.",
+    tags: ["Web Workers", "JavaScript", "Async API", "Performance"],
+    impact: "Zero-latency background logging",
+    icon: "📜",
+    color: "#f59e0b",
+  },
+  {
     title: "Self-Serve Document Flow",
+    company: "Vakilsearch",
     description:
       "Automated end-to-end document collection system using Next.js and WebSocket-based real-time uploads. Reduced manual processing effort by 80% and shortened customer turnaround time from days to hours.",
     tags: ["Next.js", "WebSockets", "Node.js", "MongoDB"],
@@ -138,6 +170,7 @@ export const professionalProjects: ProfessionalProject[] = [
   },
   {
     title: "GRC Compliance Platform",
+    company: "Vakilsearch",
     description:
       "Enterprise governance, risk & compliance dashboard with dynamic table management, audit trails, and role-based access control. Reduced support tickets by 40% through improved self-service capabilities.",
     tags: ["React", "Redux", "Express", "PostgreSQL"],
@@ -147,6 +180,7 @@ export const professionalProjects: ProfessionalProject[] = [
   },
   {
     title: "Service Bundle Purchase Flow",
+    company: "Vakilsearch",
     description:
       "Multi-service checkout redesign with intelligent upsell recommendations and a streamlined payment UX. Drove a 15% increase in average order value through better product bundling logic.",
     tags: ["React", "TypeScript", "Redux Toolkit", "REST API"],
@@ -156,6 +190,7 @@ export const professionalProjects: ProfessionalProject[] = [
   },
   {
     title: "Elasticsearch Search Upgrade",
+    company: "Vakilsearch",
     description:
       "Migrated the core product search experience to Elasticsearch with smart autocomplete, faceted filtering, and relevance tuning. Improved search response times by 40% and boosted feature adoption.",
     tags: ["Elasticsearch", "Node.js", "Redis", "React"],
@@ -165,9 +200,10 @@ export const professionalProjects: ProfessionalProject[] = [
   },
   {
     title: "A/B Testing & Experimentation",
+    company: "Vakilsearch",
     description:
       "Built an internal A/B testing framework for running controlled experiments across key funnel pages with real-time metrics dashboards and statistical significance tracking.",
-    tags: ["React", "Analytics", "Node.js", "PostgreSQL"],
+    tags: ["Growth book", "React", "Mixpanel", "Node.js"],
     impact: "30% increase in feature adoption",
     icon: "🧪",
     color: "#f59e0b",

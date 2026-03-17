@@ -116,10 +116,6 @@ function ResumeModal({
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
 
-  // Focus email on open
-  // useEffect(() => {
-  //   setTimeout(() => emailRef.current?.focus(), 120);
-  // }, []);
 
   const validateEmail = (val: string) => {
     if (!val.trim()) return "Email address is required.";
