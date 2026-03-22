@@ -718,7 +718,7 @@ export default function Projects() {
                   key={company}
                   company={company}
                   projects={projects}
-                // defaultOpen={groupIndex == 0}
+                  defaultOpen={groupIndex == 0}
                 />
               ))}
             </div>

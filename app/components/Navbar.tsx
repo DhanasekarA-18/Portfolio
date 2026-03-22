@@ -6,8 +6,8 @@ import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -178,8 +178,8 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="btn-primary"
-            style={{ 
-              padding: scrolled ? "8px 18px" : "10px 22px", 
+            style={{
+              padding: scrolled ? "8px 18px" : "10px 22px",
               fontSize: "0.82rem",
               borderRadius: "12px",
               boxShadow: "0 8px 20px -6px rgba(99,102,241,0.4)"

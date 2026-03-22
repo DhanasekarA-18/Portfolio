@@ -129,6 +129,17 @@ function ResumeModal({
     return "";
   };
 
+  const handleNameKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const error = validateName(name);
+      setNameError(error);
+      if (!error) {
+        emailRef.current?.focus();
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const ne = validateName(name);
@@ -200,53 +211,70 @@ function ResumeModal({
         {/* Modal Header */}
         <div
           style={{
-            background: "linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.08))",
-            borderBottom: "1px solid rgba(99,102,241,0.15)",
-            padding: "28px 32px 24px",
+            background: "linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.04))",
+            borderBottom: "1px solid rgba(99,102,241,0.1)",
+            padding: "32px 32px 28px",
             display: "flex",
-            alignItems: "flex-start",
+            alignItems: "center",
             justifyContent: "space-between",
             gap: "16px",
           }}
         >
-          <div>
-            <div style={{ fontSize: "2rem", marginBottom: "10px" }}>📄</div>
-            <h2
-              id="modal-title"
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            <div
               style={{
-                fontSize: "1.2rem",
-                fontWeight: 800,
-                color: "var(--text-primary)",
-                margin: "0 0 6px",
-                lineHeight: "1.2",
+                width: "48px",
+                height: "48px",
+                borderRadius: "12px",
+                background: "rgba(99,102,241,0.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1.5rem",
+                border: "1px solid rgba(99,102,241,0.2)"
               }}
             >
-              Get Resume via Email
-            </h2>
-            <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", margin: 0, lineHeight: "1.5" }}>
-              I'll send my latest resume directly to your inbox.
-            </p>
+              📄
+            </div>
+            <div>
+              <h2
+                id="modal-title"
+                style={{
+                  fontSize: "1.25rem",
+                  fontWeight: 800,
+                  color: "var(--text-primary)",
+                  margin: "0 0 4px",
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.01em"
+                }}
+              >
+                Get Resume
+              </h2>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", margin: 0, opacity: 0.8 }}>
+                Directly to your inbox
+              </p>
+            </div>
           </div>
           <button
             onClick={onClose}
             aria-label="Close modal"
             style={{
-              width: "34px",
-              height: "34px",
-              background: "rgba(255,255,255,0.05)",
+              width: "36px",
+              height: "36px",
+              background: "rgba(255,255,255,0.03)",
               border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "8px",
+              borderRadius: "10px",
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "var(--text-muted)",
               flexShrink: 0,
-              transition: "all 0.2s",
+              transition: "all 0.3s ease",
             }}
             className="modal-close-btn"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M18 6L6 18M6 6l12 12" />
             </svg>
           </button>
@@ -274,32 +302,53 @@ function ResumeModal({
                 value={name}
                 onChange={(e) => { setName(e.target.value); if (nameError) setNameError(""); }}
                 onBlur={() => setNameError(validateName(name))}
+                onKeyDown={handleNameKeyDown}
                 placeholder="e.g. Jane Smith"
                 disabled={loading}
                 style={{
                   width: "100%",
-                  padding: "11px 14px 11px 38px",
-                  background: "rgba(15,23,42,0.8)",
-                  border: `1px solid ${nameError ? "rgba(239,68,68,0.5)" : "rgba(99,102,241,0.2)"}`,
-                  borderRadius: "10px",
+                  padding: "12px 14px 12px 42px",
+                  background: "rgba(15,23,42,0.6)",
+                  border: `1px solid ${nameError
+                    ? "rgba(239,68,68,0.5)"
+                    : (name && !nameError)
+                      ? "rgba(16,185,129,0.4)"
+                      : "rgba(99,102,241,0.2)"
+                    }`,
+                  borderRadius: "12px",
                   color: "var(--text-primary)",
-                  fontSize: "0.9rem",
+                  fontSize: "0.95rem",
                   outline: "none",
-                  transition: "border-color 0.2s",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   boxSizing: "border-box",
                   opacity: loading ? 0.6 : 1,
+                  boxShadow: name && !nameError ? "0 0 15px rgba(16,185,129,0.05)" : "none",
                 }}
                 className="modal-input"
                 autoFocus={true}
               />
+              <AnimatePresence>
+                {name && !nameError && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", color: "#10b981" }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <AnimatePresence>
               {nameError && (
                 <motion.p
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: "6px", display: "flex", alignItems: "center", gap: "4px" }}
+                  initial={{ opacity: 0, height: 0, y: -4 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -4 }}
+                  style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: "8px", display: "flex", alignItems: "center", gap: "6px", fontWeight: 500 }}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
@@ -336,27 +385,47 @@ function ResumeModal({
                 autoComplete="email"
                 style={{
                   width: "100%",
-                  padding: "11px 14px 11px 38px",
-                  background: "rgba(15,23,42,0.8)",
-                  border: `1px solid ${emailError ? "rgba(239,68,68,0.5)" : "rgba(99,102,241,0.2)"}`,
-                  borderRadius: "10px",
+                  padding: "12px 14px 12px 42px",
+                  background: "rgba(15,23,42,0.6)",
+                  border: `1px solid ${emailError
+                    ? "rgba(239,68,68,0.5)"
+                    : (email && !emailError)
+                      ? "rgba(16,185,129,0.4)"
+                      : "rgba(99,102,241,0.2)"
+                    }`,
+                  borderRadius: "12px",
                   color: "var(--text-primary)",
-                  fontSize: "0.9rem",
+                  fontSize: "0.95rem",
                   outline: "none",
-                  transition: "border-color 0.2s",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   boxSizing: "border-box",
                   opacity: loading ? 0.6 : 1,
+                  boxShadow: email && !emailError ? "0 0 15px rgba(16,185,129,0.05)" : "none",
                 }}
                 className="modal-input"
               />
+              <AnimatePresence>
+                {email && !emailError && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", color: "#10b981" }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <AnimatePresence>
               {emailError && (
                 <motion.p
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: "6px", display: "flex", alignItems: "center", gap: "4px" }}
+                  initial={{ opacity: 0, height: 0, y: -4 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: -4 }}
+                  style={{ color: "#ef4444", fontSize: "0.75rem", marginTop: "8px", display: "flex", alignItems: "center", gap: "6px", fontWeight: 500 }}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
@@ -368,12 +437,22 @@ function ResumeModal({
           </div>
 
           {/* Privacy note */}
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "20px", display: "flex", gap: "6px", alignItems: "flex-start" }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" style={{ flexShrink: 0, marginTop: "1px" }}>
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            Your email is only used to send the resume and is never stored or shared.
-          </p>
+          <div
+            style={{
+              background: "rgba(99,102,241,0.05)",
+              padding: "12px 16px",
+              borderRadius: "12px",
+              marginBottom: "28px",
+              border: "1px solid rgba(99,102,241,0.1)"
+            }}
+          >
+            <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: 0, display: "flex", gap: "8px", alignItems: "flex-start", lineHeight: "1.5" }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2.5" style={{ flexShrink: 0, marginTop: "2px" }}>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Your email is only used to send the resume and is <b>never stored or shared</b> with third parties.</span>
+            </p>
+          </div>
 
           {/* Buttons */}
           <div style={{ display: "flex", gap: "12px" }}>
@@ -381,17 +460,18 @@ function ResumeModal({
               type="button"
               onClick={onClose}
               disabled={loading}
+              className="cancel-btn"
               style={{
                 flex: "0 0 auto",
-                padding: "11px 20px",
+                padding: "12px 24px",
                 background: "transparent",
                 border: "1px solid rgba(99,102,241,0.2)",
-                borderRadius: "10px",
+                borderRadius: "12px",
                 color: "var(--text-secondary)",
-                fontSize: "0.875rem",
-                fontWeight: 500,
+                fontSize: "0.9rem",
+                fontWeight: 600,
                 cursor: loading ? "not-allowed" : "pointer",
-                transition: "all 0.2s",
+                transition: "all 0.3s ease",
                 opacity: loading ? 0.5 : 1,
               }}
             >
@@ -400,46 +480,48 @@ function ResumeModal({
             <button
               type="submit"
               disabled={loading}
+              className="submit-btn"
               style={{
                 flex: 1,
-                padding: "11px 20px",
+                padding: "12px 24px",
                 background: loading
                   ? "rgba(99,102,241,0.4)"
-                  : "linear-gradient(135deg,#6366f1,#8b5cf6)",
+                  : "linear-gradient(135deg, #6366f1, #8b5cf6)",
                 border: "none",
-                borderRadius: "10px",
+                borderRadius: "12px",
                 color: "#fff",
-                fontSize: "0.875rem",
-                fontWeight: 600,
+                fontSize: "0.9rem",
+                fontWeight: 700,
                 cursor: loading ? "not-allowed" : "pointer",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "8px",
-                transition: "all 0.2s",
+                gap: "10px",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                boxShadow: "0 4px 15px rgba(99,102,241,0.25)",
               }}
             >
               {loading ? (
                 <>
                   <svg
-                    width="16"
-                    height="16"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2.5"
+                    strokeWidth="3"
                     style={{ animation: "spin 0.8s linear infinite" }}
                   >
                     <path d="M21 12a9 9 0 11-6.219-8.56" />
                   </svg>
-                  Sending...
+                  <span>Sending...</span>
                 </>
               ) : (
                 <>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
                   </svg>
-                  Send My Resume
+                  <span>Send My Resume</span>
                 </>
               )}
             </button>
@@ -449,8 +531,15 @@ function ResumeModal({
 
       <style>{`
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .modal-input:focus { border-color: rgba(99,102,241,0.6) !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
-        .modal-close-btn:hover { background: rgba(255,255,255,0.08) !important; color: var(--text-primary) !important; }
+        .modal-input:focus { 
+          border-color: rgba(99,102,241,0.8) !important; 
+          box-shadow: 0 0 0 4px rgba(99,102,241,0.15) !important;
+          background: rgba(15,23,42,0.8) !important;
+        }
+        .modal-close-btn:hover { background: rgba(255,255,255,0.08) !important; color: var(--text-primary) !important; transform: rotate(90deg); }
+        .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.3); }
+        .submit-btn:active:not(:disabled) { transform: translateY(0); }
+        .cancel-btn:hover:not(:disabled) { background: rgba(255,255,255,0.03) !important; border-color: rgba(99,102,241,0.4) !important; color: var(--text-primary) !important; }
       `}</style>
     </motion.div>
   );

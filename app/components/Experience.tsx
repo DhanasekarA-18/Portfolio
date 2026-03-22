@@ -47,9 +47,16 @@ export default function Experience() {
         <motion.div
           className="timeline-line"
           initial={{ height: 0, opacity: 0 }}
-          animate={inView ? { height: "100%", opacity: 0.15 } : {}}
+          animate={inView ? { height: "calc(100% - 40px)", opacity: 1 } : {}}
           transition={{ duration: 1.5, ease: "easeInOut" }}
-          style={{ width: "1px", left: "20px" }}
+          style={{
+            width: "2px",
+            left: "79px",
+            top: "40px",
+            background: "linear-gradient(180deg, var(--accent-primary) 0%, rgba(99,102,241,0.1) 100%)",
+            borderRadius: "4px",
+            position: "absolute"
+          }}
         />
 
         {experiences.map((exp, i) => (
@@ -75,7 +82,7 @@ export default function Experience() {
                 position: "absolute",
                 left: "0px",
                 top: "24px",
-                zIndex: 2,
+                zIndex: 10,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -83,48 +90,87 @@ export default function Experience() {
                 height: "40px"
               }}
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : {}}
-                transition={{ type: "spring", stiffness: 260, damping: 20, delay: i * 0.2 }}
+              <div
                 style={{
-                  width: "12px",
-                  height: "12px",
+                  width: "20px",
+                  height: "20px",
                   borderRadius: "50%",
-                  background: exp.color,
-                  boxShadow: `0 0 20px 4px ${exp.color}40`,
-                  border: "2px solid #fff",
+                  background: "rgba(10,15,30,0.95)",
+                  border: `2px solid ${exp.color}`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   position: "relative",
-                  zIndex: 2
+                  zIndex: 2,
+                  boxShadow: `0 0 15px 2px ${exp.color}20`
                 }}
-              />
-              <motion.div
-                animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.2, 0.1] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                style={{
-                  position: "absolute",
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "50%",
-                  background: exp.color,
-                  filter: "blur(12px)",
-                  zIndex: 1
-                }}
-              />
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={inView ? { scale: 1 } : {}}
+                  transition={{ type: "spring", stiffness: 300, damping: 20, delay: i * 0.1 }}
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: exp.color,
+                  }}
+                />
+              </div>
+
+              {/* Pulsing Outer Ring (only for latest experience) */}
+              {i === 0 && (
+                <motion.div
+                  animate={{ scale: [1, 2, 1], opacity: [0.3, 0, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  style={{
+                    position: "absolute",
+                    width: "24px",
+                    height: "24px",
+                    borderRadius: "50%",
+                    border: `1px solid ${exp.color}`,
+                    zIndex: 1
+                  }}
+                />
+              )}
+
+              {/* Background Glow */}
+              <div style={{
+                position: "absolute",
+                width: "40px",
+                height: "40px",
+                borderRadius: "50%",
+                background: exp.color,
+                filter: "blur(14px)",
+                opacity: 0.1,
+                zIndex: 0
+              }} />
             </div>
 
             {/* Content Card */}
             <div style={{
-              background: "rgba(15, 23, 42, 0.4)",
-              backdropFilter: "blur(12px)",
-              border: "1px solid rgba(255, 255, 255, 0.05)",
+              background: "rgba(15, 23, 42, 0.3)",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(255, 255, 255, 0.04)",
               borderRadius: "24px",
-              padding: "32px",
-              boxShadow: "0 10px 40px -10px rgba(0,0,0,0.3)",
-              transition: "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), border 0.4s ease",
+              padding: "36px",
+              boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)",
+              transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+              position: "relative",
+              overflow: "hidden"
             }}
-            className="experience-card-hover"
+              className="experience-card-hover"
             >
+              {/* Subtle Corner Accent */}
+              <div style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                width: "120px",
+                height: "120px",
+                background: `radial-gradient(circle at 100% 0%, ${exp.color}10, transparent 70%)`,
+                pointerEvents: "none"
+              }} />
               {/* Header */}
               <div style={{
                 display: "flex",
@@ -136,11 +182,11 @@ export default function Experience() {
               }}>
                 <div>
                   <h3 style={{
-                    fontSize: "1.25rem",
+                    fontSize: "1.35rem",
                     fontWeight: 800,
-                    color: "#fff",
-                    marginBottom: "6px",
-                    letterSpacing: "-0.01em"
+                    color: "var(--text-primary)",
+                    margin: "0 0 8px",
+                    letterSpacing: "-0.02em"
                   }}>
                     {exp.role}
                   </h3>
@@ -150,7 +196,7 @@ export default function Experience() {
                     <span style={{ color: "var(--text-secondary)", fontSize: "0.85rem", fontWeight: 500 }}>{exp.location}</span>
                   </div>
                 </div>
-                
+
                 <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
                   <div style={{
                     padding: "6px 14px",
@@ -249,17 +295,22 @@ export default function Experience() {
 
       <style>{`
         .experience-card-hover:hover {
-          border-color: rgba(255, 255, 255, 0.15) !important;
-          transform: translateY(-4px);
+          border-color: rgba(99, 102, 241, 0.2) !important;
+          background: rgba(15, 23, 42, 0.4) !important;
+          transform: translateY(-6px);
+          box-shadow: 0 20px 50px -10px rgba(0,0,0,0.6);
         }
         .tech-tag-scroll:hover {
-          background: rgba(255, 255, 255, 0.08) !important;
-          border-color: rgba(255, 255, 255, 0.2) !important;
+          background: rgba(99, 102, 241, 0.1) !important;
+          border-color: rgba(99, 102, 241, 0.2) !important;
+          color: var(--accent-primary) !important;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .experience-timeline { padding-left: 0 !important; }
-          .timeline-line { display: none; }
-          .experience-card-hover { padding: 24px !important; }
+          .timeline-line { left: 14px !important; }
+          .experience-card-hover { padding: 28px 24px !important; }
+          div[style*="paddingLeft: 60px"] { padding-left: 45px !important; }
+          div[style*="width: 40px"] { width: 30px !important; }
         }
       `}</style>
     </section>
